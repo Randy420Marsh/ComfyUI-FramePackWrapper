@@ -288,9 +288,9 @@ class LoadFramePackModel:
                         break
                 if lora_rank is not None:
                     log.info(f"Merging rank {lora_rank} LoRA weights from {l['path']} with strength {l['strength']}")
-                    adapter_name = l['path'].split("/")[-1].split(".")[0]
+                    adapter_name = os.path.splitext(os.path.basename(l["path"]))[0]
                     adapter_weight = l['strength']
-                    transformer.load_lora_adapter(lora_sd, weight_name=l['path'].split("/")[-1], lora_rank=lora_rank, adapter_name=adapter_name)
+                    transformer.load_lora_adapter(lora_sd, weight_name=os.path.basename(l['path']), lora_rank=lora_rank, adapter_name=adapter_name)
 
                     adapter_list.append(adapter_name)
                     adapter_weights.append(adapter_weight)
